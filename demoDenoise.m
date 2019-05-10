@@ -3,8 +3,8 @@ imgSize     = 256;              %
 testImg     = [1];           %  
 testSig     = [ 30 50 70];    % 
 recMode     = { 'BM3D'      'WNNM'      'GSRC',     'AST-NLS',  'PGPD', ...
-                'MSEPLL',   'DnCNN',    'SSC_GSM'   'ACPT'   ,  ''   };
-recMode_id  = 9;
+                'MSEPLL',   'DnCNN',    'SSC_GSM'   'ACPT'   ,  'TWSC'   };
+recMode_id  = 10;
 
 inPar.isShow= 0;
 nbrTrial    = 1;

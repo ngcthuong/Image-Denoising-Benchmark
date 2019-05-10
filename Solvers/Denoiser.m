@@ -56,4 +56,10 @@ switch recMode
         
     case 'ACPT'
         ImgRec = ACPT(ImgNoise, nSig);     
+        
+    case 'TWSC'
+        par          = ParSetTWSC(nSig);
+        par.I 		 = ImgOrg/255; 
+        [ImRec, res] = Denoise_TWSC(ImgNoise/255, par);
+        ImgRec       = ImgRec * 255; 
 end
