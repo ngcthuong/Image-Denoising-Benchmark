@@ -30,16 +30,16 @@ switch recMode
 		[par, model]  	=  ParSetPGPD( nSig );
 		par.I 			= ImgOrg/255; 
 		par.nim 		= ImgNoise/255; 
-		[ImgRec, par]  	=  PGPD_Denoising(par, model);		
+		[ImgRec, res]  	=  PGPD_Denoising(par, model);		
         
 	case 'SSC_GSM'
 		if nSig < 50  	K = 3; 
         elseif nSig < 100 K = 4; 
-		else 			K = 5;   end;
+		else 			K = 5;   end
 		par 	= ParSetSSC( nSig, K);
 		par.nim = ImgNoise; 
         par.I   = ImgOrg; 
-		[ImgRec res.PSNR res.SSIM]   =    SSC_GSM_Denoising( par );    
+		[ImgRec, res.PSNR, res.SSIM]   =    SSC_GSM_Denoising( par );    
 
 	%% Deep learning based method
 	case 'DnCNN'
@@ -60,6 +60,14 @@ switch recMode
     case 'TWSC'
         par          = ParSetTWSC(nSig);
         par.I 		 = ImgOrg/255; 
-        [ImRec, res] = Denoise_TWSC(ImgNoise/255, par);
+        [ImgRec, res] = Denoise_TWSC(ImgNoise/255, par);
         ImgRec       = ImgRec * 255; 
+        
+    case 'NCSR'
+        par              =    ParSetNCSR( nSig );
+        par.I            =    ImgOrg; 
+        par.nim          =    ImgNoise;
+
+        [ImgRec, res.PSNR, res.SSIM]   =    NCSR_Denoising( par );    
+
 end

@@ -1,0 +1,4 @@
+%1lenna 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+%1lenna 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
