@@ -104,6 +104,6 @@ for k    =  1:par.K
         PSNR        =   csnr( d_im(1:h1,1:w1), ori_im, 0, 0 );
         fprintf( 'Preprocessing, Iter %d : PSNR = %f,   nsig = %3.2f\n', cnt, PSNR, par.nSig );
         cnt   =  cnt + 1;
-        imwrite(d_im./255, 'Results\tmp.tif');
+%         imwrite(d_im./255, 'Results\tmp.tif');
     end
 end

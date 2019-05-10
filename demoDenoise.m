@@ -4,8 +4,8 @@ testImg     = [1];           %
 testSig     = [ 30 50 70];    % 
 recMode     = { 'BM3D'      'WNNM'      'GSRC',     'AST-NLS',  'PGPD', ...
                 'MSEPLL',   'DnCNN',    'SSC_GSM'   'ACPT'   ,  'TWSC'  ...
-                'NCSR'};
-recMode_id  = 11;
+                'NCSR'      'ACVA'      'GMM_EPLL'  'LMM_EPLL'  'GGMM_EPLL'};
+recMode_id  = 15;
 
 inPar.isShow= 0;
 nbrTrial    = 1;

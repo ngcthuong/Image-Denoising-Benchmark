@@ -56,7 +56,12 @@ switch recMode
         
     case 'ACPT'
         ImgRec = ACPT(ImgNoise, nSig);     
-        
+    
+	case 'ACVA' 
+		wid = 128;
+		step = 32;
+		ImgRec = ACVA(ImgNoise,wid,step,nSig); %
+		
     case 'TWSC'
         par          = ParSetTWSC(nSig);
         par.I 		 = ImgOrg/255; 
@@ -68,6 +73,15 @@ switch recMode
         par.I            =    ImgOrg; 
         par.nim          =    ImgNoise;
 
-        [ImgRec, res.PSNR, res.SSIM]   =    NCSR_Denoising( par );    
-
+        [ImgRec, res.PSNR, res.SSIM]   =    NCSR_Denoising( par ); 
+        
+    case 'GMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('gmm'));
+        ImgRec       = ImgRec * 255; 
+    case 'LMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('lmm'));
+        ImgRec       = ImgRec * 255; 
+    case 'GGMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('ggmm'));
+        ImgRec       = ImgRec * 255; 
 end
