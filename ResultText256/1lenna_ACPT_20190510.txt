@@ -1,0 +1,7 @@
+%1lenna 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+               256      1     30  28.20  0.797  0.000  0.000  18.60  0.315  0.000  0.000
+               256      1     50  25.64  0.703  0.000  0.000  14.18  0.179  0.000  0.000
+%1lenna 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+               256      1     30  28.21  0.794  0.000  0.000  18.62  0.316  0.000  0.000
