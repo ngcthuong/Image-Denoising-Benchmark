@@ -1,6 +1,6 @@
 # Image Denoising Benchmark
 
-This is collection of matlab tool for image denoising benchmark. Current support tools are
+This is collection of matlab tool for image denoising benchmark. Current supported tools are
 
 - ACPT
     "Detail-Preserving Image Denoising via Adaptive Clustering and Progressive PCA Thresholding," in IEEE Access,2018
