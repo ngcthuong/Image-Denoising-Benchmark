@@ -5,33 +5,58 @@ nSig    = inPar.nSig;
 isShow  = inPar.isShow; 
 
 switch recMode
-   case 'BM3D'
+    case 'ACPT'
+        ImgRec = ACPT(ImgNoise, nSig);         
+	case 'ACVA' 
+		wid = 128;
+		step = 32;
+		ImgRec = ACVA(ImgNoise,wid,step,nSig);         
+    case 'AST-NLS'
+		ImgRec  = ast_nls( ImgNoise, nSig);	
+    case 'BM3D'
         [res.PSNR, ImgRec] = BM3D(ImgOrg, ImgNoise, nSig );
-        ImgRec = ImgRec * 255; 
-    case 'WNNM'
-        par     = ParSetWNNM(nSig);   
-        par.step= 1; 
-        ImgRec  = WNNM_DeNoising( ImgNoise, ImgOrg, par );         
+        ImgRec = ImgRec * 255;         
+     case 'GMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('gmm'));
+        ImgRec       = ImgRec * 255; 
+    case 'LMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('lmm'));
+        ImgRec       = ImgRec * 255; 
+    case 'GGMM_EPLL'
+        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('ggmm'));
+        ImgRec       = ImgRec * 255; 
     case 'GSRC'
         par     = ParSetGSRC (nSig, ImgOrg);
         par.nim = ImgNoise; 
         par.I   = ImgOrg; 
-        ImgRec  = GSRC_Denoising( par, par.Thr);		
-	case 'AST-NLS'
-		ImgRec  = ast_nls( ImgNoise, nSig);	
-        
-	case 'MSEPLL'
+        ImgRec  = GSRC_Denoising( par, par.Thr);			
+    case 'MSEPLL'
 		% models	
 		par 	= ParSetMSEPLL(nSig);
-		[ImgRec, res.PSNR] = denoise(ImgNoise/255, ImgOrg/255, par.models, par.betas, nSig, par.jmp, par.filters, par.weights);
-		ImgRec 	= ImgRec * 255; 		
-        
+		[ImgRec, res.PSNR] = denoise(ImgNoise/255, ImgOrg/255, par.models, ...
+                        par.betas, nSig, par.jmp, par.filters, par.weights);
+		ImgRec 	= ImgRec * 255; 		        
+    case 'NCSR'
+        par             = ParSetNCSR( nSig );
+        par.nSig        = nSig;
+        par.I           = ImgOrg; 
+        par.nim         = ImgNoise;
+        [ImgRec, res.PSNR, res.SSIM] =  NCSR_Denoising( par );         
+    case "NLH_Fast"
+        par.nSig        = nSig;
+        par.I           = ImgOrg; 
+        par.nim         = ImgNoise;
+        [ImgRec] =  NLH_Denoising(par, 1);         
+    case "NLH_Normal"
+        par.nSig        = nSig;
+        par.I           = ImgOrg; 
+        par.nim         = ImgNoise;
+        [ImgRec] =  NLH_Denoising(par, 2);         
 	case 'PGPD'
 		[par, model]  	=  ParSetPGPD( nSig );
 		par.I 			= ImgOrg/255; 
 		par.nim 		= ImgNoise/255; 
-		[ImgRec, res]  	=  PGPD_Denoising(par, model);		
-        
+		[ImgRec, res]  	=  PGPD_Denoising(par, model);		        
 	case 'SSC_GSM'
 		if nSig < 50  	K = 3; 
         elseif nSig < 100 K = 4; 
@@ -40,7 +65,16 @@ switch recMode
 		par.nim = ImgNoise; 
         par.I   = ImgOrg; 
 		[ImgRec, res.PSNR, res.SSIM]   =    SSC_GSM_Denoising( par );    
-
+     case 'TWSC'
+        par          = ParSetTWSC(nSig);
+        par.I 		 = ImgOrg/255; 
+        [ImgRec, res] = Denoise_TWSC(ImgNoise/255, par);
+        ImgRec       = ImgRec * 255; 
+     case 'WNNM'
+        par     = ParSetWNNM(nSig);   
+        par.step= 1; 
+        ImgRec  = WNNM_DeNoising( ImgNoise, ImgOrg, par );         
+        
 	%% Deep learning based method
 	case 'DnCNN'
 		useGPU  = 0; 
@@ -52,36 +86,5 @@ switch recMode
 			Par.input  = gather(Par.input);
         end
         ImgRec 	= par.input - res(end).x;
-        ImgRec  = ImgRec * 255; 
-        
-    case 'ACPT'
-        ImgRec = ACPT(ImgNoise, nSig);     
-    
-	case 'ACVA' 
-		wid = 128;
-		step = 32;
-		ImgRec = ACVA(ImgNoise,wid,step,nSig); %
-		
-    case 'TWSC'
-        par          = ParSetTWSC(nSig);
-        par.I 		 = ImgOrg/255; 
-        [ImgRec, res] = Denoise_TWSC(ImgNoise/255, par);
-        ImgRec       = ImgRec * 255; 
-        
-    case 'NCSR'
-        par              =    ParSetNCSR( nSig );
-        par.I            =    ImgOrg; 
-        par.nim          =    ImgNoise;
-
-        [ImgRec, res.PSNR, res.SSIM]   =    NCSR_Denoising( par ); 
-        
-    case 'GMM_EPLL'
-        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('gmm'));
-        ImgRec       = ImgRec * 255; 
-    case 'LMM_EPLL'
-        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('lmm'));
-        ImgRec       = ImgRec * 255; 
-    case 'GGMM_EPLL'
-        ImgRec  = ggmm_epll(ImgNoise/255, nSig/255, get_prior('ggmm'));
-        ImgRec       = ImgRec * 255; 
+        ImgRec  = ImgRec * 255;
 end

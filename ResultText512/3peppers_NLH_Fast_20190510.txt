@@ -1,0 +1,7 @@
+%3peppers 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+%3peppers 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+               512      1     30  22.04  0.611  0.000  0.000  18.59  0.212  0.000  0.000
+               512      1     50  21.19  0.503  0.000  0.000  14.17  0.108  0.000  0.000
+               512      1     70  18.14  0.356  0.000  0.000  11.24  0.065  0.000  0.000

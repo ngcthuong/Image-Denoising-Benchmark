@@ -1,11 +1,12 @@
 clear all;  close all;  path(path,genpath(pwd));
-imgSize     = 256;              % 
-testImg     = [1];           %  
+imgSize     = 512;              % 
+testImg     = [1:13];           %  
 testSig     = [ 30 50 70];    % 
 recMode     = { 'BM3D'      'WNNM'      'GSRC',     'AST-NLS',  'PGPD', ...
                 'MSEPLL',   'DnCNN',    'SSC_GSM'   'ACPT'   ,  'TWSC'  ...
-                'NCSR'      'ACVA'      'GMM_EPLL'  'LMM_EPLL'  'GGMM_EPLL'};
-recMode_id  = 15;
+                'NCSR'      'ACVA'      'GMM_EPLL'  'LMM_EPLL'  'GGMM_EPLL' ...
+                'NLH_Fast'  'NLH_Normal' };
+recMode_id  = 16;
 
 inPar.isShow= 0;
 nbrTrial    = 1;

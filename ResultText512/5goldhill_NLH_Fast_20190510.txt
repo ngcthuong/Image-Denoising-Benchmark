@@ -1,0 +1,4 @@
+%5goldhill 
+%             size  trial    Sub  PSNR   SSIM   FSIM   Delt  nPSNR   nSSIM  nFSIM  nDelta 
+               512      1     30  21.07  0.466  0.000  0.000  18.60  0.261  0.000  0.000
+               512      1     50  20.33  0.366  0.000  0.000  14.14  0.128  0.000  0.000
