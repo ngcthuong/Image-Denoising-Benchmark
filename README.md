@@ -22,6 +22,8 @@ This is collection of matlab tool for image denoising benchmark. Current support
     Multi-Scale Patch-Based Image Restoration, TIP 2016. 
 - NCSR 
     TIP 2012. 
+- NLH: at github.com/njusthyk1972/NLH
+  "NLH: A Blind Pixel-level Non-local Method for Real-world Image Denoising",  TIP 2020  
 - PGDP
     Patch Group Based Nonlocal Self-Similarity Prior Learning for Image Denoising, ICCV 2015
 - SSC_GSRM
